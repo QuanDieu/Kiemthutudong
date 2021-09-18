@@ -1,0 +1,33 @@
+package Test1;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Test1 {
+
+
+    public static void main(String[] args) {
+ 
+    	System.setProperty("webdriver.gecko.driver","D:\\geckodriver.exe");
+		  WebDriver driver = new FirefoxDriver();
+
+    	
+        String baseUrl = "https://routine.vn/customer/account/create/";
+        String expectedTitle = "Đăng ký";
+        String actualTitle = "";
+
+        driver.get(baseUrl);
+
+        actualTitle = driver.getTitle();
+
+        if (actualTitle.contentEquals(expectedTitle)){
+            System.out.println("Test Passed!");
+        } else {
+            System.out.println("Test Failed");
+        }
+       
+        //close Fire fox
+        //driver.close();
+       
+    }
+
+}
