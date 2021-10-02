@@ -12,40 +12,60 @@ public class FindElementWithXpathAxesTest {
 
     @Test
 
-    public void testSiblingAndParentInXpath(){
-
-    	WebDriver driver;
-    	String driverPath = "D:\\geckodriver.exe";
-    	System.setProperty("webdriver.gecko.driver", driverPath);
-        driver = new FirefoxDriver();        
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        System.setProperty("webdriver.chrome.driver","E:\\HOCTAP\\KIỂM THỰ TỰ ĐỘNG\\chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+        String baseUrl = "http://demo.guru99.com/test/guru99home/";
         
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("http://demo.guru99.com/test/guru99home/");
-
-        //Search element inside 'Popular course' which are sibling of control 'SELENIUM' ,Here first we will find a h2 whose text is ''A few of our most popular courses' ,then we move to its parent element which is a 'div' , inside this div we will find a link whose text is 'SELENIUM' then at last we will find all of the sibling elements of this link('SELENIUM')
+        // launch Chrome and direct it to the Base URL
+        driver.get(baseUrl);
+        driver.manage().window().maximize();
         
-        List <WebElement> dateBox = driver.findElements(By.xpath("//h2[contains(text(),'A few of our most popular courses')]/parent::div//div[//a[text()='SELENIUM']]/following-sibling::div[@class='rt-grid-2 rt-omega']"));
+        //Parent(driver);
+        //AncestorFollowing(driver);
+        Preceding(driver);
+        //Following(driver);
+     
+        
+        
+        
 
-        //Print all the which are sibling of the the element named as 'SELENIUM' in 'Popular course'
-        for (WebElement webElement : dateBox) {
+    }
+    
+    public static void Parent(WebDriver driver) {
+        //Parent
+        List <WebElement> data = driver.findElements(By.xpath("//h2[contains(text(),'Check out our newest courses')]/parent::div"));
+        for (WebElement webElement : data) {
             System.out.println(webElement.getText());
         }     
+
+        driver.close();
     }
-    public void testAncestorInXpath(){
-
-        WebDriver driver = new FirefoxDriver();             
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("http://demo.guru99.com/test/guru99home/");
-
-        //Search All elements in 'Popular course' section 
-        //with the help of ancestor of the anchor whose text is 'SELENIUM'
-
-        List <WebElement> dateBox = driver.findElements(By.xpath("//div[.//a[text()='SELENIUM']]/ancestor::div[@class='rt-grid-2 rt-omega']/following-sibling::div"));
-
-        //Print all the which are sibling of the element named as 'SELENIUM' in 'Popular course'
-
-        for (WebElement webElement : dateBox) {
+    
+    public static void AncestorFollowing(WebDriver driver) {
+        //Ancestor & Following-sibling
+        List <WebElement> data1 = driver.findElements(By.xpath("//div[.//a[text()='SELENIUM']]/ancestor::div[@class='rt-grid-2 rt-omega']/following-sibling::div"));
+        for (WebElement webElement : data1) {
             System.out.println(webElement.getText());
-        }
+        }     
+
+        driver.close();
+    }
+    
+    public static void Following(WebDriver driver) {
+        //Following
+        WebElement w =driver.findElement(By.xpath("//*[contains(text(),'Check out our newest courses')]//following::div[1]"));
+        System.out.println(w.getText());
+      
+        driver.close();
+    }
+    
+    public static void Preceding(WebDriver driver) {
+          //preceding    
+          WebElement w1 =driver.findElement(By.xpath("//*[contains(text(),'VBScript')]//preceding::div[1]"));
+          System.out.println(w1.getText());
+          
+          driver.close();
     }
 }
